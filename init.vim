@@ -22,11 +22,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
-
-" Track the engine.
 Plug 'SirVer/ultisnips'
-
-" Snippets are separated from the engine. Add this if you want them:
 Plug 'honza/vim-snippets'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
@@ -93,13 +89,8 @@ let g:ctrlp_max_files=100000
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/.git/*,*/node_modules/*     " MacOSX/Linux
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v(.git|web|cache|vendor|node_modules|lib|tmp|bin|var|test|docs|build|_site|Proxy|assets)$',
+  \ 'dir':  '\v(.git|cache|vendor|node_modules|lib|tmp|bin|var|test|docs|build|assets)$',
   \ }
-
-"jsDoc
-let g:jsdoc_allow_input_prompt=1
-let g:jsdoc_input_description=1
-au BufRead,BufNewFile *.js nnoremap <buffer> <leader>p :JsDoc<CR>
 
 "emmet
 au BufRead,BufNewFile *.html,*.css,*.twig map <buffer> <leader>e <c-y>,
