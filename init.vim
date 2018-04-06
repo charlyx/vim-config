@@ -93,7 +93,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 "emmet
-au BufRead,BufNewFile *.html,*.css,*.twig map <buffer> <leader>e <c-y>,
+au BufRead,BufNewFile *.html,*.css,*.jsx map <buffer> <leader>e <c-y>,
 
 " Allow netrw to remove non-empty local directories
 "
