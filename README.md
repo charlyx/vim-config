@@ -10,3 +10,17 @@ My ViM config
 * javascript syntax with [vim-javascript-syntax](https://github.com/jelera/vim-javascript-syntax)
 * git integration with [vim-fugitive](https://github.com/tpope/vim-fugitive) and [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 * ... To be continued.
+
+## Requirements
+
+Install python 3
+
+```shell
+brew install python3
+```
+
+Install neovim client python
+
+```
+pip3 install neovim
+```
