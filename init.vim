@@ -122,3 +122,5 @@ let g:UltiSnipsExpandTrigger="<tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+tnoremap <Esc> <C-\><C-n>
