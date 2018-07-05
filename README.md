@@ -13,14 +13,22 @@ My ViM config
 
 ## Requirements
 
-Install python 3
+### Install python 3
 
 ```shell
 brew install python3
 ```
 
-Install neovim client python
+### Install neovim client python
 
 ```
 pip3 install neovim
+```
+
+### [Install vim-plug](https://github.com/junegunn/vim-plug#neovim)
+
+### Install plugins
+
+```
+nvim +PlugInstall +qall
 ```
