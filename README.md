@@ -29,6 +29,8 @@ pip3 install neovim
 
 ### Install plugins
 
+![PlugInstall](images/pluginstall.png)
+
 ```
 nvim +PlugInstall +qall
 ```
