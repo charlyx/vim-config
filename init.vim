@@ -27,4 +27,11 @@ call plug#begin("~/.config/nvim/bundle")
                 \ 'javascript': ['javascript-typescript-stdio'],
                 \ }
     let g:LanguageClient_completionPreferTextEdit = 1
+
+    Plug 'iCyMind/NeoSolarized'
 call plug#end()
+
+colorscheme NeoSolarized
+
+set termguicolors
+set background=light
