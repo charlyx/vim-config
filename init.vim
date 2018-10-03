@@ -35,6 +35,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'tpope/vim-fugitive'
     Plug 'jeffkreeftmeijer/vim-numbertoggle'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'w0rp/ale'
 call plug#end()
 
 colorscheme NeoSolarized
