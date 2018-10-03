@@ -34,6 +34,8 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'vim-airline/vim-airline-themes'
     Plug 'tpope/vim-fugitive'
     Plug 'jeffkreeftmeijer/vim-numbertoggle'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
 call plug#end()
 
 colorscheme NeoSolarized
@@ -46,3 +48,9 @@ set cursorline
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_override_sign_column_highlight = 0
+
+let mapleader = ","
+
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
+nnoremap <silent> <leader><space> :Files<CR>
