@@ -39,6 +39,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'editorconfig/editorconfig-vim'
     Plug 'w0rp/ale'
     Plug 'mattn/emmet-vim'
+    Plug 'tpope/vim-surround'
 call plug#end()
 
 colorscheme NeoSolarized
