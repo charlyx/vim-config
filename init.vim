@@ -31,6 +31,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'airblade/vim-gitgutter'
     Plug 'iCyMind/NeoSolarized'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 colorscheme NeoSolarized
