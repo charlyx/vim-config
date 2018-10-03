@@ -33,6 +33,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'tpope/vim-fugitive'
+    Plug 'jeffkreeftmeijer/vim-numbertoggle'
 call plug#end()
 
 colorscheme NeoSolarized
