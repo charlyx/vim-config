@@ -29,9 +29,16 @@ call plug#begin("~/.config/nvim/bundle")
     let g:LanguageClient_completionPreferTextEdit = 1
 
     Plug 'airblade/vim-gitgutter'
+    Plug 'iCyMind/NeoSolarized'
 call plug#end()
 
+colorscheme NeoSolarized
+
+set termguicolors
+set background=light
 set signcolumn=yes
+set number relativenumber
+set cursorline
 
 let g:gitgutter_enabled = 1
 let g:gitgutter_override_sign_column_highlight = 0
