@@ -27,4 +27,11 @@ call plug#begin("~/.config/nvim/bundle")
                 \ 'javascript': ['javascript-typescript-stdio'],
                 \ }
     let g:LanguageClient_completionPreferTextEdit = 1
+
+    Plug 'airblade/vim-gitgutter'
 call plug#end()
+
+set signcolumn=yes
+
+let g:gitgutter_enabled = 1
+let g:gitgutter_override_sign_column_highlight = 0
