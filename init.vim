@@ -27,4 +27,6 @@ call plug#begin("~/.config/nvim/bundle")
                 \ 'javascript': ['javascript-typescript-stdio'],
                 \ }
     let g:LanguageClient_completionPreferTextEdit = 1
+
+    Plug 'vim-airline/vim-airline'
 call plug#end()
