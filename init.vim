@@ -38,6 +38,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'junegunn/fzf.vim'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'w0rp/ale'
+    Plug 'mattn/emmet-vim'
 call plug#end()
 
 colorscheme NeoSolarized
@@ -87,3 +88,6 @@ let mapleader = ","
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
 nnoremap <silent> <leader><space> :Files<CR>
+
+"emmet
+au BufRead,BufNewFile *.html,*.css,*.jsx,*.svg map <buffer> <leader>e <c-y>,
