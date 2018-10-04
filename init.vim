@@ -92,3 +92,6 @@ nnoremap <silent> <leader><space> :Files<CR>
 
 "emmet
 au BufRead,BufNewFile *.html,*.css,*.jsx,*.svg map <buffer> <leader>e <c-y>,
+
+"escape terminal
+tnoremap <Esc> <C-\><C-n>
