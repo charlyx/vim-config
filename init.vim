@@ -42,6 +42,8 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'tpope/vim-surround'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
+    Plug 'pangloss/vim-javascript'
+    Plug 'mxw/vim-jsx'
 call plug#end()
 
 colorscheme NeoSolarized
