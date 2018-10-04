@@ -21,10 +21,12 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'ncm2/ncm2-jedi'
 
     Plug 'ncm2/ncm2-match-highlight'
+    Plug 'ncm2/ncm2-cssomni'
 
     Plug 'autozimu/LanguageClient-neovim'
     let g:LanguageClient_serverCommands = {
                 \ 'javascript': ['javascript-typescript-stdio'],
+                \ 'css': ['css-languageserver', '--stdio'],
                 \ }
     let g:LanguageClient_completionPreferTextEdit = 1
 
@@ -42,6 +44,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'tpope/vim-surround'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
+    Plug 'ap/vim-css-color'
 call plug#end()
 
 colorscheme NeoSolarized
