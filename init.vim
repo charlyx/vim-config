@@ -98,3 +98,6 @@ au BufRead,BufNewFile *.html,*.css,*.jsx,*.svg map <buffer> <leader>e <c-y>,
 "goyo integration for limelight
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+
+"escape terminal
+tnoremap <Esc> <C-\><C-n>
