@@ -48,6 +48,7 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'ap/vim-css-color'
     Plug 'pangloss/vim-javascript'
     Plug 'mxw/vim-jsx'
+    Plug 'tpope/vim-projectionist'
 call plug#end()
 
 colorscheme NeoSolarized
