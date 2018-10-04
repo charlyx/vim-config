@@ -40,6 +40,8 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'w0rp/ale'
     Plug 'mattn/emmet-vim'
     Plug 'tpope/vim-surround'
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/limelight.vim'
 call plug#end()
 
 colorscheme NeoSolarized
@@ -92,6 +94,10 @@ nnoremap <silent> <leader><space> :Files<CR>
 
 "emmet
 au BufRead,BufNewFile *.html,*.css,*.jsx,*.svg map <buffer> <leader>e <c-y>,
+
+"goyo integration for limelight
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 "escape terminal
 tnoremap <Esc> <C-\><C-n>
