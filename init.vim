@@ -97,7 +97,7 @@ let mapleader = ","
 
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
-nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader><space> :GFiles<CR>
 
 "emmet
 au BufRead,BufNewFile *.html,*.css,*.jsx,*.svg map <buffer> <leader>e <c-y>,
