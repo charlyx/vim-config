@@ -25,9 +25,12 @@ call plug#begin("~/.config/nvim/bundle")
 
     Plug 'autozimu/LanguageClient-neovim'
     let g:LanguageClient_serverCommands = {
+                \ 'typescript': ['javascript-typescript-stdio'],
                 \ 'javascript': ['javascript-typescript-stdio'],
                 \ 'javascript.jsx': ['javascript-typescript-stdio'],
                 \ 'css': ['css-languageserver', '--stdio'],
+                \ 'python': ['/usr/local/bin/pyls'],
+                \ 'rust': ['rustup', 'run', 'nightly', 'rls']
                 \ }
     let g:LanguageClient_completionPreferTextEdit = 1
 
@@ -49,6 +52,8 @@ call plug#begin("~/.config/nvim/bundle")
     Plug 'pangloss/vim-javascript'
     Plug 'mxw/vim-jsx'
     Plug 'tpope/vim-projectionist'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'rust-lang/rust.vim'
 call plug#end()
 
 colorscheme NeoSolarized
