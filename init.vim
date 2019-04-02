@@ -19,11 +19,7 @@ call plug#begin("~/.config/nvim/bundle")
 
     Plug 'prettier/vim-prettier'
 
-    " when running at every change you may want to disable quickfix
-    let g:prettier#quickfix_enabled = 0
-
     let g:prettier#autoformat = 0
-    autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 
     Plug 'ncm2/ncm2-bufword'
     Plug 'ncm2/ncm2-jedi'
