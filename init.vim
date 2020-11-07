@@ -255,3 +255,11 @@ function! s:build_go_files()
 endfunction
 
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+" Rust file type
+autocmd FileType rust nmap <leader>b  <Plug>(cargo build)
+autocmd FileType rust nmap <leader>f :RustFmt<CR>
+autocmd FileType rust nmap <leader>r :RustRun<CR>
+autocmd FileType rust nmap <leader>t :RustTest<CR>
+autocmd BufWritePre *.rs RustFmt
+

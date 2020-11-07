@@ -34,3 +34,9 @@ pip3 install neovim
 ```
 nvim +PlugInstall +qall
 ```
+
+### Install specific autocompletions
+
+```
+nvim +"CocInstall coc-rls" +qall
+```
