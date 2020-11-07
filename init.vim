@@ -78,7 +78,6 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
 
 set termguicolors
 set background=light
-set number relativenumber
 set cursorline
 
 let g:gitgutter_enabled = 1
