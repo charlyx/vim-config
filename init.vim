@@ -261,5 +261,7 @@ autocmd FileType rust nmap <leader>b  <Plug>(cargo build)
 autocmd FileType rust nmap <leader>f :RustFmt<CR>
 autocmd FileType rust nmap <leader>r :RustRun<CR>
 autocmd FileType rust nmap <leader>t :RustTest<CR>
+" Run test without capturing the output
+autocmd FileType rust nmap <leader>T :RustTest -- --nocapture<CR>
 autocmd BufWritePre *.rs RustFmt
 
