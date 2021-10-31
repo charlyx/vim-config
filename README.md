@@ -38,5 +38,5 @@ nvim +PlugInstall +qall
 ### Install specific autocompletions
 
 ```
-nvim +"CocInstall coc-rls" +qall
+nvim +"CocInstall coc-rust-analyzer" +qall
 ```
