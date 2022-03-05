@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 " Collection of common configurations for the Nvim LSP client
 Plug 'neovim/nvim-lspconfig'
-Plug 'glepnir/lspsaga.nvim'
+Plug 'tami5/lspsaga.nvim'
 
 " Autocompletion framework
 Plug 'hrsh7th/nvim-cmp'
@@ -46,13 +46,13 @@ Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " lua
 
 " Some color scheme other then default
-Plug 'ellisonleao/gruvbox.nvim'
+Plug 'overcache/NeoSolarized'
 
 call plug#end()
 
 set termguicolors
 set background=light
-colorscheme gruvbox
+colorscheme NeoSolarized
 
 
 " Set completeopt to have a better completion experience
