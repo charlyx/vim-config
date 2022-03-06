@@ -46,14 +46,13 @@ Plug 'folke/trouble.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " lua
 
 " Some color scheme other then default
-Plug 'overcache/NeoSolarized'
+Plug 'iCyMind/NeoSolarized'
 
 call plug#end()
 
 set termguicolors
 set background=light
 colorscheme NeoSolarized
-
 
 " Set completeopt to have a better completion experience
 " :help completeopt
@@ -69,44 +68,98 @@ set shortmess+=c
 " rust-tools will configure and enable certain LSP features for us.
 " See https://github.com/simrat39/rust-tools.nvim#configuration
 lua <<EOF
+-- setup rust-tools
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
+local lspconfig = require('lspconfig')
+
+lspconfig.rust_analyzer.setup({
+  on_attach = lsp_status.on_attach,
+  capabilities = lsp_status.capabilities
+})
+
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
+
+capabilities.experimental = {}
+capabilities.experimental.hoverActions = true
 
 local opts = {
-    tools = {
-        autoSetHints = true,
-        hover_with_actions = true,
-        runnables = {
-            use_telescope = true
-        },
-        inlay_hints = {
-            show_parameter_hints = true,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
-        },
+  tools = {
+    autoSetHints = true,
+    hover_with_actions = true,
+    runnables = {
+      use_telescope = true
     },
-
-    -- all the opts to send to nvim-lspconfig
-    -- these override the defaults set by rust-tools.nvim
-    -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-    server = {
-        -- on_attach is a callback called when the language server attachs to the buffer
-        -- on_attach = on_attach,
-        settings = {
-            -- to enable rust-analyzer settings visit:
-            -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-            ["rust-analyzer"] = {
-                -- enable clippy on save
-                checkOnSave = {
-                    command = "clippy"
-                },
-            }
-        }
+    debuggables = {
+      use_telescope = true
     },
+    inlay_hints = {
+      show_parameter_hints = true,
+      parameter_hints_prefix = "↢ ",
+      other_hints_prefix  = "↣ ",
+      highlight = "RustInlayHint",
+    },
+    hover_actions = {
+      border = {
+        {"╭", "FloatBorder"}, {"─", "FloatBorder"},
+        {"╮", "FloatBorder"}, {"│", "FloatBorder"},
+        {"╯", "FloatBorder"}, {"─", "FloatBorder"},
+        {"╰", "FloatBorder"}, {"│", "FloatBorder"}
+      },
+      -- whether the hover action window gets automatically focused
+      auto_focus = true
+    },
+    crate_graph = {
+      -- Backend used for displaying the graph
+      -- see: https://graphviz.org/docs/outputs/
+      -- default: x11
+      backend = "png",
+      -- where to store the output, nil for no output stored (relative
+      -- path from pwd)
+      -- default: nil
+      output = nil,
+      -- true for all crates.io and external crates, false only the local
+      -- crates
+      -- default: true
+      full = true,
+      -- enabled_graphviz_backends = {
+      --   "bmp", "cgimage", "canon", "dot", "gv", "xdot", "xdot1.2", "xdot1.4",
+      --   "eps", "exr", "fig", "gd", "gd2", "gif", "gtk", "ico", "cmap", "ismap",
+      --   "imap", "cmapx", "imap_np", "cmapx_np", "jpg", "jpeg", "jpe", "jp2",
+      --   "json", "json0", "dot_json", "xdot_json", "pdf", "pic", "pct", "pict",
+      --   "plain", "plain-ext", "png", "pov", "ps", "ps2", "psd", "sgi", "svg",
+      --   "svgz", "tga", "tiff", "tif", "tk", "vml", "vmlz", "wbmp", "webp", "xlib",
+      --   "x11"
+      -- }
+    }
+  },
+  server = { -- setup rust_analyzer
+    on_attach = lsp_on_attach,
+    capabilities = capabilities,
+    -- to enable rust-analyzer settings visit:
+    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+    ["rust-analyzer"] = {
+      -- enable clippy on save
+      checkOnSave = {
+        command = "clippy"
+      },
+    }
+  },
 }
 
 require('rust-tools').setup(opts)
+-- setup rust-tools end
 EOF
 
 let mapleader = ','
@@ -134,7 +187,7 @@ local cmp = require'cmp'
 cmp.setup({
   snippet = {
     expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+      vim.fn["vsnip#anonymous"](args.body)
     end,
   },
   mapping = {
@@ -214,27 +267,7 @@ require("trouble").setup {
     -- refer to the configuration section below
   }
 
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-
-local lspconfig = require('lspconfig')
-
-lspconfig.rust_analyzer.setup({
-  on_attach = lsp_status.on_attach,
-  capabilities = lsp_status.capabilities
-})
 EOF
-
-" Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
-
-set statusline+=%{get(b:,'LspStatus','')}
 
 nnoremap <silent>gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 
