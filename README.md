@@ -25,6 +25,19 @@ brew install python3
 pip3 install neovim
 ```
 
+### Install tree sitter
+
+```
+brew install tree-sitter
+```
+
+### Install other Requirements
+
+```
+brew install rg fd
+```
+
+
 ### [Install vim-plug](https://github.com/junegunn/vim-plug#neovim)
 
 ### Install plugins
@@ -38,5 +51,11 @@ nvim +PlugInstall +qall
 ### Install specific autocompletions
 
 ```
-nvim +"CocInstall coc-rls" +qall
+nvim +"TSUpdate rust" +qall
+```
+
+### Install specific tools (for example rust-analyzer for rust)
+
+```
+brew install rust-analyzer
 ```
