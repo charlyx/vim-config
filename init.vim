@@ -38,8 +38,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'ojroques/nvim-hardline'
+
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'ojroques/nvim-hardline'
+Plug 'j-hui/fidget.nvim'
+
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-surround'
 Plug 'folke/trouble.nvim'
@@ -55,6 +58,7 @@ call plug#end()
 set termguicolors
 set background=light
 colorscheme NeoSolarized
+
 
 " Set completeopt to have a better completion experience
 " :help completeopt
@@ -112,6 +116,7 @@ local opts = {
       other_hints_prefix  = "↣ ",
       highlight = "RustInlayHint",
     },
+
     hover_actions = {
       border = {
         {"╭", "FloatBorder"}, {"─", "FloatBorder"},
@@ -149,15 +154,24 @@ local opts = {
   server = { -- setup rust_analyzer
     on_attach = lsp_on_attach,
     capabilities = capabilities,
-    -- to enable rust-analyzer settings visit:
-    -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-    ["rust-analyzer"] = {
-      -- enable clippy on save
-      checkOnSave = {
-        command = "clippy"
-      },
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy"
+        },
+      }
     }
   },
+  -- dap = {
+  --   adapter = {
+  --     type = 'executable',
+  --     command = 'lldb-vscode',
+  --     name = "rt_lldb"
+  --   }
+  -- }
 }
 
 require('rust-tools').setup(opts)
@@ -225,8 +239,9 @@ set signcolumn=yes
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
-" Show diagnostic popup on cursor hover
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+" Show diagnostic popup on cursor hover (Disabled because it's the same as
+" <leader>cd <leader>cc from lspsaga, we should choose between the two
+" autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
@@ -268,7 +283,6 @@ require("trouble").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-
 EOF
 
 nnoremap <silent>gh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
@@ -346,3 +360,5 @@ vim.g.symbols_outline = {
   }
 }
 EOF
+
+lua require"fidget".setup{}
