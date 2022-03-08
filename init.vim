@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
 " Collection of common configurations for the Nvim LSP client
 Plug 'neovim/nvim-lspconfig'
 Plug 'tami5/lspsaga.nvim'
+Plug 'williamboman/nvim-lsp-installer'
 
 " Autocompletion framework
 Plug 'hrsh7th/nvim-cmp'
@@ -85,96 +86,144 @@ lspconfig.rust_analyzer.setup({
   capabilities = lsp_status.capabilities
 })
 
+local lsp_installer = require("nvim-lsp-installer")
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
-
-capabilities.experimental = {}
-capabilities.experimental.hoverActions = true
-
-local opts = {
-  tools = {
-    autoSetHints = true,
-    hover_with_actions = true,
-    runnables = {
-      use_telescope = true
-    },
-    debuggables = {
-      use_telescope = true
-    },
-    inlay_hints = {
-      show_parameter_hints = true,
-      parameter_hints_prefix = "↢ ",
-      other_hints_prefix  = "↣ ",
-      highlight = "RustInlayHint",
-    },
-
-    hover_actions = {
-      border = {
-        {"╭", "FloatBorder"}, {"─", "FloatBorder"},
-        {"╮", "FloatBorder"}, {"│", "FloatBorder"},
-        {"╯", "FloatBorder"}, {"─", "FloatBorder"},
-        {"╰", "FloatBorder"}, {"│", "FloatBorder"}
-      },
-      -- whether the hover action window gets automatically focused
-      auto_focus = true
-    },
-    crate_graph = {
-      -- Backend used for displaying the graph
-      -- see: https://graphviz.org/docs/outputs/
-      -- default: x11
-      backend = "png",
-      -- where to store the output, nil for no output stored (relative
-      -- path from pwd)
-      -- default: nil
-      output = nil,
-      -- true for all crates.io and external crates, false only the local
-      -- crates
-      -- default: true
-      full = true,
-      -- enabled_graphviz_backends = {
-      --   "bmp", "cgimage", "canon", "dot", "gv", "xdot", "xdot1.2", "xdot1.4",
-      --   "eps", "exr", "fig", "gd", "gd2", "gif", "gtk", "ico", "cmap", "ismap",
-      --   "imap", "cmapx", "imap_np", "cmapx_np", "jpg", "jpeg", "jpe", "jp2",
-      --   "json", "json0", "dot_json", "xdot_json", "pdf", "pic", "pct", "pict",
-      --   "plain", "plain-ext", "png", "pov", "ps", "ps2", "psd", "sgi", "svg",
-      --   "svgz", "tga", "tiff", "tif", "tk", "vml", "vmlz", "wbmp", "webp", "xlib",
-      --   "x11"
-      -- }
+lsp_installer.settings({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
     }
-  },
-  server = { -- setup rust_analyzer
-    on_attach = lsp_on_attach,
-    capabilities = capabilities,
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = "clippy"
-        },
+})
+
+
+
+local lsp_installer = require("nvim-lsp-installer")
+
+-- Include the servers you want to have installed by default below
+local servers = {
+  "bashls",
+  "gopls",
+  "rust_analyzer",
+  "yamlls",
+  "vimls"
+}
+
+for _, name in pairs(servers) do
+  local server_is_found, server = lsp_installer.get_server(name)
+  if server_is_found and not server:is_installed() then
+    print("Installing " .. name)
+    server:install()
+  end
+end
+
+lsp_installer.on_server_ready(function(server)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities.textDocument.completion.completionItem.resolveSupport = {
+      properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
       }
     }
-  },
-  -- dap = {
-  --   adapter = {
-  --     type = 'executable',
-  --     command = 'lldb-vscode',
-  --     name = "rt_lldb"
-  --   }
-  -- }
-}
+    capabilities = vim.tbl_extend('keep', capabilities or {}, lsp_status.capabilities)
 
-require('rust-tools').setup(opts)
+    capabilities.experimental = {}
+    capabilities.experimental.hoverActions = true
+
+    local opts = {
+      tools = {
+        autoSetHints = true,
+        hover_with_actions = true,
+        runnables = {
+          use_telescope = true
+        },
+        debuggables = {
+          use_telescope = true
+        },
+        inlay_hints = {
+          show_parameter_hints = true,
+          parameter_hints_prefix = "↢ ",
+          other_hints_prefix  = "↣ ",
+          highlight = "RustInlayHint",
+        },
+
+        hover_actions = {
+          border = {
+            {"╭", "FloatBorder"}, {"─", "FloatBorder"},
+            {"╮", "FloatBorder"}, {"│", "FloatBorder"},
+            {"╯", "FloatBorder"}, {"─", "FloatBorder"},
+            {"╰", "FloatBorder"}, {"│", "FloatBorder"}
+          },
+          -- whether the hover action window gets automatically focused
+          auto_focus = true
+        },
+        crate_graph = {
+          -- Backend used for displaying the graph
+          -- see: https://graphviz.org/docs/outputs/
+          -- default: x11
+          backend = "png",
+          -- where to store the output, nil for no output stored (relative
+          -- path from pwd)
+          -- default: nil
+          output = nil,
+          -- true for all crates.io and external crates, false only the local
+          -- crates
+          -- default: true
+          full = true,
+          -- enabled_graphviz_backends = {
+          --   "bmp", "cgimage", "canon", "dot", "gv", "xdot", "xdot1.2", "xdot1.4",
+          --   "eps", "exr", "fig", "gd", "gd2", "gif", "gtk", "ico", "cmap", "ismap",
+          --   "imap", "cmapx", "imap_np", "cmapx_np", "jpg", "jpeg", "jpe", "jp2",
+          --   "json", "json0", "dot_json", "xdot_json", "pdf", "pic", "pct", "pict",
+          --   "plain", "plain-ext", "png", "pov", "ps", "ps2", "psd", "sgi", "svg",
+          --   "svgz", "tga", "tiff", "tif", "tk", "vml", "vmlz", "wbmp", "webp", "xlib",
+          --   "x11"
+          -- }
+        }
+      },
+      server = { -- setup rust_analyzer
+        on_attach = lsp_on_attach,
+        capabilities = capabilities,
+        settings = {
+          -- to enable rust-analyzer settings visit:
+          -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+          ["rust-analyzer"] = {
+            -- enable clippy on save
+            checkOnSave = {
+              command = "clippy"
+            },
+          }
+        }
+      },
+      -- dap = {
+      --   adapter = {
+      --     type = 'executable',
+      --     command = 'lldb-vscode',
+      --     name = "rt_lldb"
+      --   }
+      -- }
+    }
+
+    if server.name == "rust_analyzer" then
+        -- Initialize the LSP via rust-tools instead
+        require("rust-tools").setup {
+            -- The "server" property provided in rust-tools setup function are the
+            -- settings rust-tools will provide to lspconfig during init.
+            -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
+            -- with the user's own settings (opts).
+            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+        }
+        server:attach_buffers()
+        -- Only if standalone support is needed
+        require("rust-tools").start_standalone_if_required()
+    else
+        server:setup(opts)
+    end
+end)
 -- setup rust-tools end
 EOF
 
@@ -190,7 +239,7 @@ let mapleader = ','
 "nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 "nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 "nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-"nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 "nnoremap <silent><leader>n    <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Quick-fix
@@ -296,7 +345,7 @@ nnoremap <silent>gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<C
 
 nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 
-nnoremap <silent>gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+"nnoremap <silent>gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 
 nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
 
