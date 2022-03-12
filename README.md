@@ -11,6 +11,88 @@ My ViM config
 * git integration with [vim-fugitive](https://github.com/tpope/vim-fugitive) and [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 * ... To be continued.
 
+## Bindings
+
+### Standard
+
+`gd`
+: Go to definition
+
+`ga`
+: LSP Code action
+
+`g[`
+: Go to previous warning/error
+
+`g]`
+: Go to next warning/error
+
+`<leader>ff`
+: Fuzzy find file
+
+`<leader>fg`
+: Fuzzy find in file (live grep)
+
+`<leader>fb`
+: Find in buffer
+
+`<leader>fh`
+: Help tags
+
+`gh`
+: Show definition and references 
+
+`<leader>ca`
+: Code action
+
+`<leader>ca :<C-U>`
+: Range code action
+
+`K`
+: Hover doc
+
+`gs`
+: Signature Help
+
+`gr`
+: Rename
+
+`<leader>cd`
+: Show line diagnostic`
+
+`<leader>cc`
+: Show cursor diagnostic
+
+`[e`
+: Show previous diagnostic
+
+`]e`
+: Show next diagnostic`
+
+### Completion
+
+`<C-p>` | `<S-Tab>`
+: Previous item
+
+`<C-n>` | `<Tab>`
+: Next item
+
+`<C-d>`
+: Scroll docs -4
+
+`<C-f>`
+: Scroll docs +4 
+
+`<C-Space>`
+: Mapping complete
+
+`<C-e>`
+: Mapping close
+
+`<CR>`
+: Mapping confirm
+
+
 ## Requirements
 
 ### Install python 3
