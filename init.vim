@@ -244,6 +244,7 @@ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 
 " Quick-fix
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent>ff <cmd>lua vim.lsp.buf.formatting()<cr>
 
 " Setup Completion
 " See https://github.com/hrsh7th/nvim-cmp#basic-configuration

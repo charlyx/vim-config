@@ -69,6 +69,9 @@ My ViM config
 `]e`
 : Show next diagnostic`
 
+`ff`
+: Format file
+
 ### Completion
 
 `<C-p>` | `<S-Tab>`
